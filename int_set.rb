@@ -22,3 +22,29 @@ class MaxIntSet
     end
 
 end
+
+
+class IntSet
+  attr_reader :max, :store
+
+  def initialize(max)
+    @store = Array.new(max) {Array.new}
+  end
+
+  def insert(num)
+    self[num] << num
+  end
+
+  def [](num)
+    @store[num % max]
+  end
+
+  def include?(num)
+    self[num].include?(num)
+  end
+
+  def remove(num)
+    self[num].delete(num) if self.include?(num)
+  end
+
+end

@@ -55,17 +55,17 @@ class LinkedList
       return current.val if current.key == key
       current = current.next
     end
-    return nil
+    nil
   end
 
   def include?(key)
-
+    return false if get(key) == nil
+    true
   end
 
   def append(key, val)
     node = Node.new(key, val)
     previous = @tail.prev
-    
     node.prev = @tail.prev
     @tail.prev = node
     node.next = @tail
@@ -73,10 +73,24 @@ class LinkedList
   end
 
   def update(key, val)
-
+    self.each do |node|
+      if node.key == key
+        node.val = val
+        break
+      end
+    end
   end
 
   def remove(key)
+      self.each do |node|
+        if node.key == key
+          prev_node = node.prev
+          next_node = node.next
+          prev_node.next = next_node
+          next_node.prev = prev_node
+          break
+        end
+      end
   end
 
   def each

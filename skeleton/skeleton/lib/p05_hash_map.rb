@@ -2,10 +2,14 @@ require_relative 'p04_linked_list'
 
 class HashMap
   attr_accessor :count
-
+  include Enumerable
   def initialize(num_buckets = 8)
     @store = Array.new(num_buckets) { LinkedList.new }
     @count = 0
+  end
+
+  def [](key)
+    
   end
 
   def include?(key)
@@ -21,6 +25,11 @@ class HashMap
   end
 
   def each
+    @store.each do |bucket|
+      bucket.each do |node|
+        yield(node.key, node.val)
+      end
+    end
   end
 
   # uncomment when you have Enumerable included

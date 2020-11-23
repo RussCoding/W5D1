@@ -25,20 +25,22 @@ end
 
 
 class IntSet
-  attr_reader :max, :store
+  attr_reader :max 
 
   def initialize(max)
     @max = max
     @store = Array.new(max) {Array.new}
+  end
+  
+  def [](num)
+    idx = num % max
+    @store[idx]
   end
 
   def insert(num)
     self[num] << num
   end
 
-  def [](num)
-    @store[num % max]
-  end
 
   def include?(num)
     self[num].include?(num)
@@ -48,25 +50,4 @@ class IntSet
     self[num].delete(num) if self.include?(num)
   end
 
-end
-
-class ResizingIntSet < IntSet
-    def size
-        @store.length
-    end
-
-    def count
-        @store.flatten.count
-    end
-
-    def insert(num)
-        self.resize if @store.length == count + 1
-        self[num] << num
-    end
-
-    def resize
-        elements = @store.flatten
-        @store = Array.new(@store.length * 2) {Array.new}
-        elements.each {|ele| insert(ele)}
-    end
 end

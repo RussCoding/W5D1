@@ -25,19 +25,22 @@ end
 
 
 class IntSet
-  attr_reader :max, :store
+  attr_reader :max 
 
   def initialize(max)
+    @max = max
     @store = Array.new(max) {Array.new}
+  end
+  
+  def [](num)
+    idx = num % max
+    @store[idx]
   end
 
   def insert(num)
     self[num] << num
   end
 
-  def [](num)
-    @store[num % max]
-  end
 
   def include?(num)
     self[num].include?(num)
@@ -48,3 +51,4 @@ class IntSet
   end
 
 end
+

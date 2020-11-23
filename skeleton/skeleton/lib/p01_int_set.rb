@@ -1,23 +1,23 @@
 class MaxIntSet
-    attr_reader :max
+    attr_reader :max, :store
     def initialize(max)
         @max = max
         @store = Array.new(max, false)
     end
 
     def insert(num)
-        raise "Out of Bounds" if num < 0 || num > max-1
-        store[num] = true
+        raise "Out of bounds" if num < 0 || num > max-1
+        @store[num] = true
     end
 
     def remove(num)
         raise "Out of Bounds" if num < 0 || num > max-1
-        store[num] = false
+        @store[num] = false
     end
 
     def include?(num)
         raise "Out of Bounds" if num < 0 || num > max-1
-        store[num]
+        @store[num]
     end
 
 end
@@ -51,7 +51,7 @@ class IntSet
 end
 
 class ResizingIntSet < IntSet
-  def size
+  def num_buckets
       @store.length
   end
 
@@ -60,11 +60,12 @@ class ResizingIntSet < IntSet
   end
 
   def insert(num)
-      self.resize if @store.length == count + 1
-      self[num] << num
+    return if self.include?(num)  
+    self.resize! if @store.length == count + 1
+    self[num] << num
   end
 
-  def resize
+  def resize!
       elements = @store.flatten
       @store = Array.new(@store.length * 2) {Array.new}
       elements.each {|ele| insert(ele)}

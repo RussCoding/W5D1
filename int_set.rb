@@ -33,7 +33,7 @@ class IntSet
   end
   
   def [](num)
-    idx = num % max
+    idx = num % @store.length
     @store[idx]
   end
 

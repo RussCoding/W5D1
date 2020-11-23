@@ -12,7 +12,7 @@ class HashSet
     end
 
     def insert(num)
-        self.resize if @store.length == count + 1
+        self.resize! if @store.length == count + 1
         self[num] << num
     end
 
@@ -35,7 +35,7 @@ class HashSet
         sum
     end
 
-    def resize
+    def resize!
         elements = [] 
         @store.each do |sub|
             sub.each {|ele| elements << ele}

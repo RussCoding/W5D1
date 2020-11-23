@@ -1,13 +1,3 @@
-# class Array
-#     def self.hash   # a = [1,2,3]   a.hash(arr)  Array.hash  Integer.hash
-#         self.map {|ele| ele.hash}
-#     end
-
-#     def self.talk(arr)
-#         p arr
-#     end
-# end
-
 class HashSet
     attr_reader :max, :store
 

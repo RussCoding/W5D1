@@ -1,3 +1,4 @@
+require 'byebug'
 class Node
   attr_reader :key
   attr_accessor :val, :next, :prev
@@ -19,9 +20,9 @@ class Node
   end
 end
 
-class LinkedList 
+class LinkedList
   include Enumerable
-  attr_accessor :head, :tail
+  attr_reader :head, :tail
 
   def initialize
     @head = Node.new("head")
@@ -30,7 +31,7 @@ class LinkedList
     @tail.prev = @head
   end
 
-  def [](i)
+  def [](i) # LL[ 1, 2, 3, 4, 5 ] /// LL[4]
     each_with_index { |link, j| return link if i == j }
     nil
   end
@@ -48,9 +49,17 @@ class LinkedList
   end
 
   def get(key)
+    current = @head.next
+
+    until current == @tail
+      return current.val if current.key == key
+      current = current.next
+    end
+    return nil
   end
 
   def include?(key)
+
   end
 
   def append(key, val)
@@ -64,13 +73,20 @@ class LinkedList
   end
 
   def update(key, val)
+
   end
 
   def remove(key)
   end
 
   def each
-    
+    current = @head.next    #current = 1st node at start
+    # return [] if current.val == nil
+
+    while current != @tail
+      yield current             #node.val
+      current = current.next    #[-2]node.next ==> tail
+    end
 
   end
 
